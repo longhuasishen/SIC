@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="SIC"
+  id="myeclipse.1401349599144"
+  context-root="/SIC"
+  j2ee-spec="5.0"
+  archive="SIC.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sand.ibsmis.dao.inf.CompanyMapper">
+<resultMap id="companyResult" type="Company">
+	<id property="companyId" column="company_id"/>
+	<result property="companyName" column="company_name"/>
+	<result property="channelId" column="channel_id"/>
+	<result property="insertTime" column="insert_time"/>
+	<result property="updateUser" column="update_user"/>
+	<result property="updateTime" column="update_time"/>
+	<result property="beforeAmt" column="before_amt"/>
+	<result property="afterAmt" column="after_amt"/>
+	<result property="currAmt" column="curr_amt"/>
+	<result property="warnAmt" column="warn_amt"/>
+	<result property="status" column="status"/>
+	<!--<collection property="userList" ofType="User" resultMap="com.sand.ibsmis.dao.inf.UserMapper.userResult"></collection>
+--></resultMap>
+<select id="getCompanyById" parameterType="java.lang.String" resultMap="companyResult">
+	SELECT * FROM system_company c where c.company_id =#{companyId}
+</select>
+<select id="findCompanys" resultMap="companyResult">
+	select * from system_company r
+</select>
+<select id="queryCompanyCount" resultType="java.lang.Integer">
+	select count(*) from system_company r
+</select>
+<!--<update id="updateRole">
+	update system_role set role_comment=''
+</update>
+--></mapper>

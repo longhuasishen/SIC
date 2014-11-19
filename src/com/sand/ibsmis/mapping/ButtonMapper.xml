@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sand.ibsmis.dao.inf.ButtonMapper">
+<resultMap id="buttonResult" type="Button">
+	<id property="buttonCode" column="buttoncode"/>
+	<result property="buttonName" column="buttonname"/>
+	<result property="buttonIcon" column="buttonicon"/>
+	<result property="buttonEvent" column="buttonevent"/>
+	<result property="buttonDesc" column="resdesc"/>
+	<result property="buttonState" column="state"/>
+</resultMap>
+<select id="getButtonById" parameterType="java.lang.String" resultMap="buttonResult">
+	SELECT * FROM system_button sb where sb.buttoncode =#{buttonId}
+</select>
+<select id="findButtons" resultMap="buttonResult">
+	select * from system_button sb order by sb.buttoncode asc
+</select>
+<select id="queryButtonCount" resultType="java.lang.Integer">
+	select count(*) from system_button sb
+</select>
+<!--<update id="updateRole">
+	update system_role set role_comment=''
+</update>
+--></mapper>

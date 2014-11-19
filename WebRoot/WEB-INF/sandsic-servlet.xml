@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx" 
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+			
+	<!-- 开启controller注解支持 -->
+    <!-- use-default-filters="false" 只扫描指定的注解 -->
+    <!--<context:component-scan base-package="com.sand.ibsmis.action" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    --><mvc:annotation-driven/>
+    <context:component-scan base-package="com.sand.ibsmis.action"></context:component-scan>
+	<!-- 如果当前请求为“/”时，则转发到“/helloworld/index” -->
+    <mvc:view-controller path="/" view-name="forward:/WEB-IFN/page/login.jsp"/> 
+	<!-- 静态资源映射 -->
+    <mvc:resources mapping="/js/**" location="/WEB-INF/js/" />
+    <mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
+    <mvc:resources mapping="/fonts/**" location="/WEB-INF/fonts/" />
+    <mvc:resources mapping="/easyui/**" location="/WEB-INF/easyui/" />
+    <mvc:resources mapping="images/**" location="/WEB-INF/images/" />
+    <!-- 当上面要访问的静态资源不包括在上面的配置中时，则根据此配置来访问 -->
+    <!--<mvc:default-servlet-handler/>
+    -->
+    <!-- <mvc:annotation-driven/> 功能相当于下面2个bean，开启默认mapping和默认adapter-->
+	<!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean>
+	--><bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="/WEB-INF/page/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>	
+	<!--<mvc:interceptors>
+	  <mvc:interceptor>
+	    <mvc:mapping path="/*" />
+	    <bean class="smartcrud.common.spring.SecurityInterceptor">
+	      <property name="excludedUrls">
+	        <list>
+	          <value>/login</value>
+	        </list>
+	      </property>
+	    </bean>
+	  </mvc:interceptor>
+	</mvc:interceptors>
+	-->
+	<!--<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>	
+	   	 	<bean class="com.sand.ibsmis.filter.AuthInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	--><bean id="maxUploadSize" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <property name="maxUploadSize" value="32505856" /><!-- 上传文件大小限制为31M，31*1024*1024 -->  
+        <property name="maxInMemorySize" value="4096" />  
+    </bean>
+    <!-- 采用SpringMVC自带的JSON转换工具，支持@ResponseBody注解 -->
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                 设置返回字符串编码 
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name = "supportedMediaTypes">
+                        <list>
+                            <value>text/html;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+                 json转换器 
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" >
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/html;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean> 
+	-->
+</beans>
