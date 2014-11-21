@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body  class="easyui-layout">
   	<div data-options="region:'center',title:''">
-    <table id="dg" title="菜单信息列表" class="easyui-datagrid" fitColumns="true" toolbar="#toolbar"
+    <table id="dg" title="按钮信息列表" class="easyui-datagrid" fitColumns="true" toolbar="#toolbar"
     		url="button/list" loadMsg="正在加载数据..." rownumbers="true"
            pagination="true" pageSize="15" pageList="[5,15,25,35,45,55]" checkbox="true" 
             rownumbers="true" fit="true" singleSelect="true">
@@ -67,37 +67,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </span>
     </div>
     
-    <div id="w" class="easyui-window" title="用户信息" data-options="modal:true,resizable:false,closed:true,maximizable:false,minimizable:false,collapsible:false" style="width:550px;height:320px;">
+    <div id="w" class="easyui-window" title="操作按钮" data-options="modal:true,resizable:false,closed:true,maximizable:false,minimizable:false,collapsible:false" style="width:420px;height:250px;">
 		<div class="easyui-layout" data-options="fit:true">
-		  <div data-options="region:'center'" style="padding:5px;">
+		  <div region="center" style="text-align:left;padding:5px;">
 	        <form id="fm" method="post">
 	            <div class="fitem">
-	                <label>用户名:</label>
-	                <input name="username" id='username' class="easyui-validatebox" data-options="validType:'length[1,20]'">
-	                <label>密码:</label>
-	                <input name='password' id='password' class="easyui-validatebox" type="password"  data-options="validType:'length[1,20]'">
+	                <label>按钮编码[*]:</label>
+	                <input name="buttonCode" id='buttonCode' class="easyui-textbox">
 	            </div>
 	            <div class="fitem">
-	                <label>邮箱:</label>
-	                <input name="email" id='email' class="easyui-validatebox" data-options="validType:'email'">
-	                <label>联系电话:</label>
-	                <input name="phonenumber" id='phonenumber' class="easyui-textbox" required="true">
+	                <label>按钮名称[*]:</label>
+	                <input name="buttonName" id='buttonName' class="easyui-textbox">
 	            </div>
 	            <div class="fitem">
-	            	<label>真实姓名:</label>
-	                <input name="name" id='name' class="easyui-textbox" required="true">
-	                <label>是否有效:</label>
-	                <input type="checkbox" id="state" name="state" checked="checked"><span style="color:red">注意：禁用将不能登录系统</span>
+	            	<label>按钮图标[*]:</label>
+	                <input name="buttonIcon" id='buttonIcon' class="easyui-textbox" >
 	            </div>
 	            <div class="fitem">
-	                <label>默认角色:</label>
-	                <input id="roleid" name="roleid" class="easyui-combobox" style="width:133px;" data-options="editable:false,panelHeight:'100',valueField:'role_id',textField:'role_name',url:'role/select'"/>
-	                <label>商户号:</label>
-	                <input name="company_id" id='company_id' class="easyui-combobox"  style="width:133px;" data-options="editable:false,panelHeight:'100',valueField:'comp_id',textField:'comp_name',url:'comp/select'"/>
+	                <label>按钮事件[*]:</label>
+	                <input name="buttonEvent" id='buttonEvent' class="easyui-textbox" >
 	            </div>
 	            <div class="fitem">
-	            	<label>说明:</label>
-	                <textarea style="height:100px;width:365px;vertical-align:top" id="desc" name="desc"></textarea>
+	            	<label>描述[*]:</label>
+	                <input name="buttonDesc" id='buttonDesc' class="easyui-textbox" >
 	            </div>
 	          </form>
 	        </div>
@@ -126,8 +118,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
         .fitem label{
             display:inline-block;
-            width:60px;
+            width:80px;
             margin-left:30px;
+            margin-top:5px;
+        }
+        .fitem input{
+        	width:200px;
+        	height:20px;
         }
     </style>
 </body>

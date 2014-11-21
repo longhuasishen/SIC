@@ -11,6 +11,7 @@ function formatOper(val,row,index){
 	        	   		method:'post',
 					    url:'role_privilege.action?roleId='+roleId
 					});
+	        	   $('#w').window({title:'编辑角色'});
 	               $('#w').window('open');
 	               $('#fm').form('load',row);
 	               url='role_add.action?roleId='+roleId;
@@ -19,7 +20,7 @@ function formatOper(val,row,index){
 			    }
         }
     	function addRole(){
-    		$('#w').attr('title','添加角色');
+    		$('#w').window({title:'添加角色'});
     		$('#fm').form('clear');
     		$('#w').window('open');
     		url='role/save';
