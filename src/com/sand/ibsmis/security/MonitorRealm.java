@@ -56,8 +56,8 @@ public class MonitorRealm extends AuthorizingRealm{
         //给当前用户设置角色
         info.addRoles(roles);
         //给当前用户设置权限
-        info.addStringPermissions(permissions); 
         info.addStringPermissions(urlList);
+        info.addStringPermissions(permissions); 
         return info;
 	}
 
@@ -78,7 +78,7 @@ public class MonitorRealm extends AuthorizingRealm{
 		Des3Util des3Util=new Des3Util(IBSMisConf.SICKEY);
 		//用户名、密码正确
 		if(user.getPassword().equals(des3Util.getEncString(password))){
-			if(!"0".equalsIgnoreCase(user.getState())){
+			if(!"0".equalsIgnoreCase(user.getUstate())){
 				throw new LockedAccountException();
 			}else{
 				SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(username, password .toCharArray(),getName());

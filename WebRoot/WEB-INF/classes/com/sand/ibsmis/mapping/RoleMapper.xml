@@ -6,7 +6,7 @@
 	<id property="role_id" column="role_id"/>
 	<result property="role_name" column="role_name"/>
 	<result property="role_comment" column="role_comment"/>
-	<result property="state" column="state"/>
+	<result property="rstate" column="rstate"/>
 	<!--<collection property="userList" ofType="User" resultMap="com.sand.ibsmis.dao.inf.UserMapper.userResult"></collection>
 --></resultMap>
 <select id="getRoleById" parameterType="java.lang.String" resultMap="roleResult">

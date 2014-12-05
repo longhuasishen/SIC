@@ -2,25 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sand.ibsmis.dao.inf.MenuMapper">
-<resultMap id="menuResult" type="Resource">
-	<id property="menucode" column="menucode"/>
-	<result property="menuname" column="menuname"/>
-	<result property="parentmenucode" column="parentmenucode"/>
-	<result property="menuicon" column="menuicon"/>
-	<result property="menuurl" column="menuurl"/>
-	<result property="resdesc" column="resdesc"/>
-	<result property="state" column="state"/>
-</resultMap>
-<select id="getResourceById" parameterType="java.lang.String" resultMap="menuResult">
-	SELECT * FROM system_menu m where m.menucode =#{resourceId}
-</select>
-<select id="findResources" resultMap="menuResult">
-	select * from system_menu m order by m.menucode asc
-</select>
-<select id="queryResourceCount" resultType="java.lang.Integer">
-	select count(*) from system_menu m
-</select>
-<!--<update id="updateRole">
-	update system_role set role_comment=''
-</update>
---></mapper>
+	<resultMap id="menuResult" type="Resource">
+		<id property="menucode" column="menucode"/>
+		<result property="menuname" column="menuname"/>
+		<result property="parentmenucode" column="parentmenucode"/>
+		<result property="menuicon" column="menuicon"/>
+		<result property="menuurl" column="menuurl"/>
+		<result property="menudesc" column="menudesc"/>
+		<result property="menustate" column="menustate"/>
+	</resultMap>
+	<select id="getResourceById" parameterType="java.lang.String" resultMap="menuResult">
+		SELECT * FROM system_menu m where m.menucode =#{resourceId}
+	</select>
+	<select id="findResources" resultMap="menuResult">
+		select * from system_menu m order by m.menucode asc
+	</select>
+	<select id="findResourcesByRoleId" parameterType="java.lang.String" resultMap="menuResult">
+		
+	</select>
+	<select id="queryResourceCount" resultType="java.lang.Integer">
+		select count(*) from system_menu m
+	</select>
+	<insert id="insertMenu" parameterType="com.sand.ibsmis.bean.Resource" flushCache="true">
+	   INSERT INTO system_menu (menucode,menuname,parentmenucode,menuicon,menuurl,menudesc,menustate) 
+	   VALUES 
+	   (#{menucode},#{menuname},#{parentmenucode,jdbcType=VARCHAR},#{menuicon,jdbcType=VARCHAR},#{menuurl,jdbcType=VARCHAR},#{menudesc,jdbcType=VARCHAR},#{menustate,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateMenu" parameterType="com.sand.ibsmis.bean.Resource" flushCache="true">
+	   update system_menu set menuname=#{menuname},parentmenucode=#{parentmenucode,jdbcType=VARCHAR},menuicon=#{menuicon,jdbcType=VARCHAR},menuurl=#{menuurl,jdbcType=VARCHAR},menudesc=#{menudesc,jdbcType=VARCHAR} where menucode=#{menucode}
+	</update>
+	<delete id="deleteMenu" parameterType="java.lang.String">
+		delete from system_menu where menucode=#{menucode}
+	</delete>
+</mapper>

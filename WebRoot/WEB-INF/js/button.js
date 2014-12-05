@@ -18,11 +18,53 @@ function edit(){
     var row = $('#dg').datagrid('getSelected');  
     if (row){  
 	    roleId=row.buttonCode;  
- 	    $('#w').window({title:'编辑角色'});
+ 	    $('#w').window({title:'操作按钮-编辑'});
         $('#w').window('open');
         $('#fm').form('load',row);
-        url='role_add.action?roleId='+roleId;
-	    }  else{
-	    	$.messager.alert('提示','请先选择一个角色');
-	    }
+        url='button/edit';
+	}else{
+	    $.messager.alert('提示','请先选择一条记录');
+	}
+}
+function save(){
+	$('#fm').form('submit',{
+        url: url,
+        onSubmit: function(){
+            return $(this).form('validate');
+        },
+        success: function(result){
+            var result = eval('('+result+')');
+            if (result.success==false){
+                $.messager.show({
+                    title: 'Error',
+                    msg: result.message
+                });
+            } else {
+            	$.messager.alert('提示',result.message,'info');
+                $('#w').window('close');        // close the dialog
+                $('#dg').datagrid('reload');    // reload the user data
+            }
+        }
+    });
+}
+function del(){
+	var row = $('#dg').datagrid('getSelected');
+    if (row){
+        $.messager.confirm('提示','你确定要删除这个按钮信息么?',function(r){
+            if (r){
+                $.post('button/delete',{buttonCode:row.buttonCode},function(result){
+                    if (result.success){
+                        $('#dg').datagrid('reload');    // reload the user data
+                    } else {
+                        $.messager.show({    // show error message
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    }
+                },'json');
+            }
+        });
+    }else{
+    	$.messager.alert('提示','请先选择一条记录!','info');
+    }
 }

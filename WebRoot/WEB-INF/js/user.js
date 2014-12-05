@@ -55,23 +55,24 @@
 			});
 		});
         function add(){
+        	$('#w').window({title:'用户信息-添加'});
         	$('#fm').form('clear');
         	$('#password').attr("readonly","");
         	$('#w').window('open');
-            $('#state').attr("checked",true);
+            $('#ustate').attr("checked",true);
             $('#roleid').combobox('setValue','0');
             $('#company_id').combobox('setValue','0');
             url = 'user/save';
         }
         function edit(){
-        	//$('#w').text('用户信息-编辑');
+        	$('#w').window({title:'用户信息-编辑'});
             var row = $('#dg').datagrid('getSelected');
             if (row){
                 $('#fm').form('load',row);
-                if(row.state=='0'){
-                	$('#state').attr("checked","checked");
+                if(row.ustate=='0'){
+                	$('#ustate').attr("checked","checked");
                 }else{
-                	$('#state').attr("checked","");
+                	$('#ustate').attr("checked","");
                 }
                 $('#password').val("******");
             	$('#password').attr("readonly","true");
@@ -104,7 +105,7 @@
                     if (result.success==false){
                         $.messager.show({
                             title: 'Error',
-                            msg: result.message
+                            msg: result.errorMsg
                         });
                     } else {
                     	$.messager.alert('提示',result.message,'info');
@@ -119,7 +120,6 @@
             if (row){
                 $.messager.confirm('提示','你确定要删除这个用户信息么?',function(r){
                     if (r){
-                    	alert('123');
                         $.post('user/delete',{username:row.username},function(result){
                         	alert(result);
                             if (result.success){

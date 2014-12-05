@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <th data-options="field:'phonenumber',width:90">联系电话</th>
                 <th data-options="field:'company_id',width:120">所属商户</th>
                 <th data-options="field:'role.role_name',width:90,formatter:roleFormatter">用户角色</th>
-                <th data-options="field:'state',width:60,formatter:checkFormatter">是否有效</th>
+                <th data-options="field:'ustate',width:60,formatter:checkFormatter">是否有效</th>
             </tr>
         </thead>
         <thead>
@@ -67,7 +67,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<select id="queryOption">
 			    		<option value="username">用户名</option>
 			    		<option value="name">姓名</option>
-			    		<option value="phonenumber">联系电话</option>
 			    		<option value="companyid">所属商户</option>
 			    	</select>
 		    	</span>
@@ -100,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            	<label>真实姓名:</label>
 	                <input name="name" id='name' class="easyui-textbox" required="true">
 	                <label>是否有效:</label>
-	                <input type="checkbox" id="state" name="state" checked="checked"><span style="color:red">注意：禁用将不能登录系统</span>
+	                <input type="checkbox" id="ustate" name="ustate" checked="checked"><span style="color:red">注意：禁用将不能登录系统</span>
 	            </div>
 	            <div class="fitem">
 	                <label>默认角色:</label>

@@ -52,4 +52,10 @@ public interface IBSBaseDataService{
 	 * @return
 	 */
 	public List<String> findUrlList(String roleId);
+	/**
+	 * 根据roleid角色号查找该角色对应的所有用户
+	 * @param roleId
+	 * @return
+	 */
+	public List<User> findUsersByRoleId(String roleId);
 }

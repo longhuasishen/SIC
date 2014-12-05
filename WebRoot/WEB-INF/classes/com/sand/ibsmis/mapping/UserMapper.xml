@@ -12,7 +12,7 @@
 	<result property="last_login" column="last_login"/>
 	<result property="last_ip" column="last_ip"/>
 	<result property="desc" column="user_desc"/>
-	<result property="state" column="state"/>
+	<result property="ustate" column="ustate"/>
 	<association property="role" resultMap="com.sand.ibsmis.dao.inf.RoleMapper.roleResult"></association>
 </resultMap>
 <select id="getUser" parameterType="java.lang.String" resultMap="userResult">
@@ -21,30 +21,35 @@
 <select id="getUserCount" resultType="java.lang.Integer">
 	SELECT count(*) FROM system_user u
 </select>
-<select id="getAllUser" parameterType="java.lang.Integer" resultMap="userResult">
-	SELECT u.username,u.company_id,u.name,u.email,u.phonenumber,u.last_login,u.last_ip,u.user_desc,u.state,r.* FROM system_user u join system_role r on u.role_id=r.role_id
+<select id="getAllUser" parameterType="java.util.Map" resultMap="userResult">
+	SELECT u.username,u.company_id,u.name,u.email,u.phonenumber,u.last_login,u.last_ip,u.user_desc,u.ustate,r.* FROM system_user u join system_role r on u.role_id=r.role_id
+	
+</select>
+<select id="findUsersByRoleId" parameterType="java.util.Map" resultMap="userResult">
+	SELECT u.username,u.company_id,u.name,u.email,u.phonenumber,u.last_login,u.last_ip,u.user_desc,u.ustate,r.* FROM system_user u join system_role r on u.role_id=r.role_id and u.role_id=#{roleId}
+	
 </select>
 <insert id="insertUser" parameterType="com.sand.ibsmis.bean.User" flushCache="true">
-   INSERT INTO system_user (username,user_passwd,company_id,name,email,phonenumber,last_login,last_ip,user_desc,state,role_id) 
+   INSERT INTO system_user (username,user_passwd,company_id,name,email,phonenumber,last_login,last_ip,user_desc,ustate,role_id) 
    VALUES 
-   (#{username},#{password},#{company_id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{phonenumber,jdbcType=VARCHAR},#{last_login,jdbcType=VARCHAR},#{last_ip,jdbcType=VARCHAR},#{desc,jdbcType=VARCHAR},#{state},#{role.role_id})
+   (#{username},#{password},#{company_id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{phonenumber,jdbcType=VARCHAR},#{last_login,jdbcType=VARCHAR},#{last_ip,jdbcType=VARCHAR},#{desc,jdbcType=VARCHAR},#{ustate},#{role.role_id})
 </insert>
 <update id="updateUser" parameterType="com.sand.ibsmis.bean.User">
-	UPDATE system_user SET company_id=#{company_id,jdbcType=VARCHAR},name=#{name,jdbcType=VARCHAR},email=#{email,jdbcType=VARCHAR},phonenumber=#{phonenumber,jdbcType=VARCHAR},last_login=#{last_login,jdbcType=VARCHAR},last_ip=#{last_ip,jdbcType=VARCHAR},role_id=#{role.role_id},state=#{state},user_desc=#{desc} WHERE username=#{username}
+	UPDATE system_user SET company_id=#{company_id,jdbcType=VARCHAR},name=#{name,jdbcType=VARCHAR},email=#{email,jdbcType=VARCHAR},phonenumber=#{phonenumber,jdbcType=VARCHAR},last_login=#{last_login,jdbcType=VARCHAR},last_ip=#{last_ip,jdbcType=VARCHAR},role_id=#{role.role_id},ustate=#{ustate},user_desc=#{desc} WHERE username=#{username}
 </update>
 <delete id="deleteUser" parameterType="java.lang.String">
 	DELETE FROM system_user WHERE username=#{username}
 </delete>
 <select id="getParentMenu" parameterType="string" resultType="java.util.HashMap">
-	select distinct pm.menucode "menucode",pm.menuname "menuname",pm.parentmenucode "parentmenucode",pm.menuicon "menuicon",pm.menuurl "menuurl",pm.resdesc "menudesc",pm.state "menustate" from system_menu pm 
-	join system_menu m on pm.menucode=m.parentmenucode and pm.state='0'
+	select distinct pm.menucode "menucode",pm.menuname "menuname",pm.parentmenucode "parentmenucode",pm.menuicon "menuicon",pm.menuurl "menuurl",pm.menudesc "menudesc",pm.menustate "menustate" from system_menu pm 
+	join system_menu m on pm.menucode=m.parentmenucode and pm.menustate='0'
 	join system_rolemenu rm on rm.menucode=m.menucode
 	join system_role r on rm.role_id=r.role_id
 	join system_user u on r.role_id=u.role_id and u.username=#{username}
 </select>
 <select id="getSubMenu" parameterType="string" resultType="java.util.HashMap">
-	select pm.menucode "menucode",pm.menuname "menuname",pm.parentmenucode "parentmenucode",pm.menuicon "menuicon",pm.menuurl "menuurl",pm.resdesc "menudesc",pm.state "menustate" from system_menu pm
-	join system_menu m on m.menucode=pm.parentmenucode and pm.state='0' and m.state='0'
+	select pm.menucode "menucode",pm.menuname "menuname",pm.parentmenucode "parentmenucode",pm.menuicon "menuicon",pm.menuurl "menuurl",pm.menudesc "menudesc",pm.menustate "menustate" from system_menu pm
+	join system_menu m on m.menucode=pm.parentmenucode and pm.menustate='0' and m.menustate='0'
 	join system_rolemenu rm on rm.menucode=pm.menucode
 	join system_role r on rm.role_id=r.role_id
 	join system_user u on r.role_id=u.role_id and u.username=#{username}

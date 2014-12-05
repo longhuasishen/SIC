@@ -35,7 +35,7 @@ public class RedirectController {
 	@AuthPassort
 	@RequestMapping("/userManage")
 	public String userManage(){
-		boolean isPermitted=PermissionUtil.isPermitted("userManage");
+		boolean isPermitted=PermissionUtil.isPermitted("userManage:list");
 		if(isPermitted){
 			return "user";
 		}else{
@@ -44,7 +44,7 @@ public class RedirectController {
 	}
 	@RequestMapping("/roleManage")
 	public String roleManage(){
-		boolean isPermitted=PermissionUtil.isPermitted("roleManage");
+		boolean isPermitted=PermissionUtil.isPermitted("roleManage:list");
 		if(isPermitted){
 			return "role";
 		}else{
@@ -53,7 +53,7 @@ public class RedirectController {
 	}
 	@RequestMapping("/compManage")
 	public String compManage(){
-		boolean isPermitted=PermissionUtil.isPermitted("compManage");
+		boolean isPermitted=PermissionUtil.isPermitted("compManage:list");
 		if(isPermitted){
 			return "company";
 		}else{
@@ -62,7 +62,7 @@ public class RedirectController {
 	}
 	@RequestMapping("/menuManage")
 	public String menuManage(){
-		boolean isPermitted=PermissionUtil.isPermitted("menuManage");
+		boolean isPermitted=PermissionUtil.isPermitted("menuManage:list");
 		if(isPermitted){
 			return "menu";
 		}else{
@@ -71,9 +71,18 @@ public class RedirectController {
 	}
 	@RequestMapping("/buttonManage")
 	public String buttonManage(){
-		boolean isPermitted=PermissionUtil.isPermitted("buttonManage");
+		boolean isPermitted=PermissionUtil.isPermitted("buttonManage:list");
 		if(isPermitted){
 			return "button";
+		}else{
+			return "forbidden";
+		}
+	}
+	@RequestMapping("/rolePriviManage")
+	public String rolePriviManage(){
+		boolean isPermitted=PermissionUtil.isPermitted("rolePriviManage:list");
+		if(isPermitted){
+			return "rolePrivi";
 		}else{
 			return "forbidden";
 		}

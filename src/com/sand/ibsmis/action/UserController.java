@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -91,7 +92,7 @@ public class UserController{
 	//@AuthPassort
 	@RequestMapping(value="/user/list",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public String user_list(String page,String rows,HttpServletRequest request,HttpServletResponse response){
+	public String user_list(@RequestParam(defaultValue="1")String page,@RequestParam(defaultValue="10")String rows,HttpServletRequest request,HttpServletResponse response){
 		response.setCharacterEncoding("UTF-8");
 		Page pager = new Page();
 		String pageSizeDefault="10";
@@ -133,7 +134,7 @@ public class UserController{
 		}
 		return null;
 	}
-	@RequestMapping(value="/user/save",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value="/user/save",method = RequestMethod.POST,produces = {"text/html;charset=UTF-8"})
 	@ResponseBody
 	public String saveUser(@ModelAttribute("user") User user) {
 		String result="";
@@ -165,12 +166,12 @@ public class UserController{
 		return result;
 	}
 
-	@RequestMapping(value="/user/update",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value="/user/update",method = RequestMethod.POST,produces = {"text/html;charset=UTF-8"})
 	@ResponseBody
 	public String updateUser(@ModelAttribute("user") User user) {
 		String result="";
 		JSONObject json=new JSONObject();
-		boolean isPermitted=PermissionUtil.isPermitted("userManage:UPDATE");
+		boolean isPermitted=PermissionUtil.isPermitted("userManage:EDIT");
 		try {
 			if (isPermitted) {
 				String roleId = request.getParameter("roleid").toString();
@@ -198,7 +199,7 @@ public class UserController{
 	}
 	//@RequiresPermissions此注解目前好像无效，采用硬编码方式PermissionUtil.iePermitted方式判断是否有此操作权限
 	@RequiresPermissions("userManage:DEL")
-	@RequestMapping(value="/user/delete",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value="/user/delete",method = RequestMethod.POST,produces = {"text/html;charset=UTF-8"})
 	@ResponseBody
 	public String deleteUser(@RequestParam(value="username") String username) {
 		String result="";
@@ -226,7 +227,7 @@ public class UserController{
 		logger.info(result);
 		return result;
 	}
-	@RequestMapping(value="/user/resetpass",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value="/user/resetpass",method = RequestMethod.POST,produces = {"text/html;charset=UTF-8"})
 	@ResponseBody
 	public String resetPass(@RequestParam(value="username") String username) {
 		int result=0;

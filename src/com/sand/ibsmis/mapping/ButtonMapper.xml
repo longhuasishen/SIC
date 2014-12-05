@@ -19,6 +19,17 @@
 <select id="queryButtonCount" resultType="java.lang.Integer">
 	select count(*) from system_button sb
 </select>
+<insert id="insertButton" parameterType="com.sand.ibsmis.bean.Button" flushCache="true">
+   INSERT INTO system_button (buttoncode,buttonname,buttonicon,buttonevent,resdesc,state) 
+   VALUES 
+   (#{buttonCode},#{buttonName},#{buttonIcon,jdbcType=VARCHAR},#{buttonEvent,jdbcType=VARCHAR},#{buttonDesc,jdbcType=VARCHAR},#{buttonState,jdbcType=VARCHAR})
+</insert>
+<update id="updateButton" parameterType="com.sand.ibsmis.bean.Button" flushCache="true">
+   update system_button set buttonname=#{buttonName},buttonicon=#{buttonIcon,jdbcType=VARCHAR},buttonevent=#{buttonEvent,jdbcType=VARCHAR},resdesc=#{buttonDesc,jdbcType=VARCHAR},state=#{buttonState,jdbcType=VARCHAR} where buttoncode=#{buttonCode}
+</update>
+<delete id="deleteButton" parameterType="java.lang.String">
+	delete from system_button where buttoncode=#{buttoncode}
+</delete>
 <!--<update id="updateRole">
 	update system_role set role_comment=''
 </update>

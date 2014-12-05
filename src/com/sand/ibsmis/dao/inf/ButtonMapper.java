@@ -9,4 +9,7 @@ public interface ButtonMapper {
 	public Button getButtonById(String buttonId);  
 	public List<Button> findButtons();
 	public int queryButtonCount();
+	public int insertButton(Button button);
+	public int updateButton(Button button);
+	public int deleteButton(String buttonCode);
 }

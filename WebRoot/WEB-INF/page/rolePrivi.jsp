@@ -20,25 +20,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body  class="easyui-layout">
+  	<div data-options="region:'west',split:true,collapsible:false" title="角色列表" style="width:200px;">
+  		<ul id="roleTree" class="easyui-tree" data-options="url:'roleprivi/selectRole',method:'get',animate:true"></ul>
+  	</div>
   	<div data-options="region:'center',title:''">
-    <table id="dg" title="菜单信息列表" class="easyui-treegrid" fitColumns="true" toolbar="#toolbar"
-    		data-options="url: 'menu/list',
-                		  method: 'post',
-                	      rownumbers: true,
-                		  idField: 'menucode',
-                		  treeField: 'menuname'">
-        <thead>
-            <tr>
-                <th data-options="field:'menuname',width:80">模块名称</th>
-                <th data-options="field:'menucode',width:100">模块编码</th>
-                <th data-options="field:'parentmenucode',width:150">上级模块编码</th>
-                <th data-options="field:'menuurl',width:90">链接地址</th>
-                <th data-options="field:'menuicon',width:90">链接图标</th>
-                <th data-options="field:'menudesc',width:90">模块说明</th>
-                <th data-options="field:'menustate',width:60,formatter:checkFormatter">是否有效</th>
-            </tr>
-        </thead>
-    </table>
+	    <div class="easyui-tabs" >
+	    	<div title="角色成员" >
+	    		<div class="easyui-layout" style="height:100%;">
+		            <table id="dg" title="角色成员列表" class="easyui-datagrid" style="display:block;"
+				           toolbar="#toolbar" url="" loadMsg="正在加载数据..." rownumbers="true"
+				           checkbox="true" rownumbers="true" fit="true" singleSelect="true">
+				        <thead data-options="frozen:true">
+				            <tr>
+				                <th data-options="field:'username',width:100">用户名</th>
+				                <th data-options="field:'name',width:80">姓名</th>
+				                <th data-options="field:'email',width:150">邮箱</th>
+				                <th data-options="field:'phonenumber',width:90">联系电话</th>
+				                <th data-options="field:'company_id',width:120">所属商户</th>
+				            </tr>
+				        </thead>
+				        <thead>
+				        	<tr>
+				                <th data-options="field:'last_login',width:150">最近登录时间</th>
+				                <th data-options="field:'last_ip',width:120">最近登录IP</th>
+				                <th data-options="field:'desc',width:150">说明</th>
+				            </tr>
+				        </thead>
+				    </table>
+			    </div>
+	        </div>
+	        <div title="模块权限" data-options="closable:true">
+	            <table id="dg2" title="菜单信息列表" class="easyui-treegrid" fitColumns="true" checkbox="true"  
+	    		data-options="url: 'roleprivi/selectMenu',
+	                		  method: 'post',
+	                	      rownumbers: true,
+	                		  idField: 'menucode',
+	                		  singleSelect:false,
+	                		  treeField: 'menuname'">
+			        <thead>
+			            <tr>
+			            	<th data-options="field:'ck',checkbox:true"></th>
+			                <th data-options="field:'menuname',width:120">模块名称</th>
+			                <th data-options="field:'menucode',width:50">模块编码</th>
+			                <th data-options="field:'parentmenucode',width:50">上级模块编码</th>
+			                <th data-options="field:'menuurl',width:90">链接地址</th>
+			                <th data-options="field:'menuicon',width:90">链接图标</th>
+			                <th data-options="field:'menudesc',width:90">模块说明</th>
+			            </tr>
+			        </thead>
+			    </table>
+	        </div>
+	        <div title="按钮权限" data-options="closable:true" style="padding:10px">
+	            This is the help content.
+	        </div>
+	    </div>
+    
     </div>
     <div id="toolbar">
        <span style="margin-left:15px;">
@@ -112,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
     
-    <script type="text/javascript" src="js/menu.js"></script>
+    <script type="text/javascript" src="js/rolePri.js"></script>
     <style type="text/css">
         #fm{
             margin:0;

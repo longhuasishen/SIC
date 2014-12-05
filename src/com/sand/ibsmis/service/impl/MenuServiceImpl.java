@@ -25,10 +25,31 @@ public class MenuServiceImpl implements MenuService {
 		
 		return menuMapper.findResources();
 	}
-
+	public Resource getMenuByCode(String menucode){
+		return menuMapper.getResourceById(menucode);
+	}
 	public int queryMenCount() {
 		
-		return 0;
+		return menuMapper.queryResourceCount();
+	}
+
+	public int deleteMenu(String menucode) {
+		return menuMapper.deleteMenu(menucode);
+	}
+
+	public int saveMenu(Resource resource) {
+		resource.setMenustate("0");
+		return menuMapper.insertMenu(resource);
+	}
+
+	public int updateMenu(Resource resource) {
+		resource.setMenustate("0");
+		return menuMapper.updateMenu(resource);
+	}
+
+	public List<Resource> findMenusByRoleId(String roleId) {
+		
+		return menuMapper.findResourcesByRoleId(roleId);
 	}
 
 }

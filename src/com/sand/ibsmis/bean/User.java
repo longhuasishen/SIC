@@ -10,7 +10,13 @@ public class User {
 	private String last_login;
 	private String last_ip;
 	private String desc;
-	private String state;
+	private String ustate;
+	public String getUstate() {
+		return ustate;
+	}
+	public void setUstate(String ustate) {
+		this.ustate = ustate;
+	}
 	private Role role;
 	
 	
@@ -74,10 +80,5 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
+	
 }

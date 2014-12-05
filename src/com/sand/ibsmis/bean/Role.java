@@ -6,7 +6,7 @@ public class Role {
 	private String role_id;
 	private String role_name;
 	private String role_comment;
-	private String state;
+	private String rstate;
 	/*private List<User> userList;
 	public List<User> getUserList() {
 		return userList;
@@ -14,17 +14,18 @@ public class Role {
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
 	}*/
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
+	
 	public String getRole_id() {
 		return role_id;
 	}
 	public void setRole_id(String roleId) {
 		role_id = roleId;
+	}
+	public String getRstate() {
+		return rstate;
+	}
+	public void setRstate(String rstate) {
+		this.rstate = rstate;
 	}
 	public String getRole_name() {
 		return role_name;

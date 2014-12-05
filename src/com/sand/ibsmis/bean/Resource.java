@@ -6,8 +6,8 @@ public class Resource {
 	private String parentmenucode;
 	private String menuicon;
 	private String menuurl;
-	private String resdesc;
-	private String state;
+	private String menudesc;
+	private String menustate;
 	public String getMenucode() {
 		return menucode;
 	}
@@ -38,17 +38,18 @@ public class Resource {
 	public void setMenuurl(String menuurl) {
 		this.menuurl = menuurl;
 	}
-	public String getResdesc() {
-		return resdesc;
+	public String getMenudesc() {
+		return menudesc;
 	}
-	public void setResdesc(String resdesc) {
-		this.resdesc = resdesc;
+	public void setMenudesc(String menudesc) {
+		this.menudesc = menudesc;
 	}
-	public String getState() {
-		return state;
+	public String getMenustate() {
+		return menustate;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setMenustate(String menustate) {
+		this.menustate = menustate;
 	}
+	
 	
 }

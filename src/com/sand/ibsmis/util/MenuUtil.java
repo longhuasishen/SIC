@@ -19,8 +19,8 @@ public class MenuUtil {
 				object.put("parentmenucode", resource.getParentmenucode());
 				object.put("menuicon", resource.getMenuicon());
 				object.put("menuurl", resource.getMenuurl());
-				object.put("resdesc", resource.getResdesc());
-				object.put("menustate", resource.getState());
+				object.put("menudesc", resource.getMenudesc());
+				object.put("menustate", resource.getMenustate());
 				JSONArray childrenArray=new JSONArray();
 				childrenArray=getMenuTree(list, resource.getMenucode());
 				if(childrenArray!=null&&childrenArray.length()>0){

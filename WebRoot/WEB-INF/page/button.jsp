@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div data-options="region:'center',title:''">
     <table id="dg" title="按钮信息列表" class="easyui-datagrid" fitColumns="true" toolbar="#toolbar"
     		url="button/list" loadMsg="正在加载数据..." rownumbers="true"
-           pagination="true" pageSize="15" pageList="[5,15,25,35,45,55]" checkbox="true" 
+            checkbox="true" 
             rownumbers="true" fit="true" singleSelect="true">
         <thead>
             <tr>

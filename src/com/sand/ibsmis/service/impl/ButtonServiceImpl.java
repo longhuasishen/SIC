@@ -32,4 +32,19 @@ public class ButtonServiceImpl implements ButtonService {
 		return buttonMapper.queryButtonCount();
 	}
 
+	public int saveButton(Button button) {
+		button.setButtonState("0");
+		return buttonMapper.insertButton(button);
+	}
+
+	public int updateButton(Button button) {
+		button.setButtonState("0");
+		return buttonMapper.updateButton(button);
+	}
+
+	public int deleteButton(String buttonCode) {
+		
+		return buttonMapper.deleteButton(buttonCode);
+	}
+
 }

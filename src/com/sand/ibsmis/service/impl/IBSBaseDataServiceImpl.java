@@ -174,7 +174,12 @@ public class IBSBaseDataServiceImpl implements IBSBaseDataService{
 
 	public Page findUserList(int currentPage, int limitNum,Map<String, Object> paramMap) {
 		Page<User> pager = new Page<User>();
-		List<User> list=userMapper.getAllUser(currentPage,limitNum);
+		if(paramMap==null){
+			paramMap=new HashMap<String, Object>();
+		}
+		paramMap.put("start", currentPage);
+		paramMap.put("pagesize", limitNum);
+		List<User> list=userMapper.getAllUser(paramMap);
 		int count=userMapper.getUserCount();
 		pager.setResult(list);
 		pager.setTotalCount(count);
@@ -211,17 +216,17 @@ public class IBSBaseDataServiceImpl implements IBSBaseDataService{
 		List<HashMap<String, Object>> permissionList=userMapper.getUrlList(roleId);
 		List<String> resultList=new ArrayList<String>();
 		for(HashMap<String, Object> map : permissionList){
-			resultList.add(map.get("menuurl").toString());
+			resultList.add(map.get("menuurl").toString()+":list");
 		}
 		return resultList;
 	}
 
 	public String insertUser(User user) {
 		int result=0;
-		if(user.getState()!=null&&"on".equalsIgnoreCase(user.getState())){
-			user.setState("0");
+		if(user.getUstate()!=null&&"on".equalsIgnoreCase(user.getUstate())){
+			user.setUstate("0");
 		}else{
-			user.setState("1");
+			user.setUstate("1");
 		}
 		if(user.getCompany_id()==null||"0".equalsIgnoreCase(user.getCompany_id())){
 			user.setCompany_id("");
@@ -261,10 +266,10 @@ public class IBSBaseDataServiceImpl implements IBSBaseDataService{
 	}
 	public String updateUser(User user) {
 		int result=0;
-		if(user.getState()!=null&&"on".equalsIgnoreCase(user.getState())){
-			user.setState("0");
+		if(user.getUstate()!=null&&"on".equalsIgnoreCase(user.getUstate())){
+			user.setUstate("0");
 		}else{
-			user.setState("1");
+			user.setUstate("1");
 		}
 		Des3Util des3Util=new Des3Util(IBSMisConf.SICKEY);
 		user.setPassword(des3Util.getEncString(user.getPassword()));
@@ -279,12 +284,12 @@ public class IBSBaseDataServiceImpl implements IBSBaseDataService{
 				json.put(IBSConstant.RESPSUCCESSMSG, "更新用户信息成功");
 			}else{
 				json.put(IBSConstant.RESPSUCCESSCODE, false);
-				json.put(IBSConstant.RESPSUCCESSMSG, "更新用户信息失败");
+				json.put(IBSConstant.RESPERRORMSG, "更新用户信息失败");
 			}
 		} catch (JSONException e) {
 			try {
 				json.put(IBSConstant.RESPSUCCESSCODE, false);
-				json.put(IBSConstant.RESPSUCCESSMSG, "更新用户信息异常");
+				json.put(IBSConstant.RESPERRORMSG, "更新用户信息异常");
 			} catch (JSONException e1) {
 				logger.info("JSON错误"+e1.getMessage());
 			}
@@ -304,5 +309,9 @@ public class IBSBaseDataServiceImpl implements IBSBaseDataService{
 			json.put(IBSConstant.RESPERRORMSG, "删除用户信息失败");
 		}
 		return json.toString();
+	}
+	public List<User> findUsersByRoleId(String roleId) {
+		
+		return userMapper.findUsersByRoleId(roleId);
 	}
 }

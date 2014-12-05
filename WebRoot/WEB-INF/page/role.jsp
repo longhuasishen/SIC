@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<th data-options="field:'ck',checkbox:true"></th>
                 <th data-options="field:'role_id', width:20">角色ID</th>
                 <th data-options="field:'role_name' ,width:30">角色名称</th>
-                <th data-options="field:'state', width:50, formatter:checkFormatter">状态</th>
+                <th data-options="field:'rstate', width:50, formatter:checkFormatter">状态</th>
                 <th data-options="field:'role_comment', width:50">角色说明</th>
             </tr>
         </thead>
