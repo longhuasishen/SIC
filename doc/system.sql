@@ -1,5 +1,5 @@
 prompt PL/SQL Developer import file
-prompt Created on 2014年9月26日 by Administrator
+prompt Created on 2014年12月5日 by Administrator
 set feedback off
 set define off
 prompt Creating SYSTEM_BUTTON...
@@ -61,8 +61,8 @@ create table SYSTEM_MENU
   PARENTMENUCODE VARCHAR2(20),
   MENUICON       VARCHAR2(20),
   MENUURL        VARCHAR2(100),
-  RESDESC        VARCHAR2(50),
-  STATE          INTEGER default (0)
+  MENUDESC       VARCHAR2(50),
+  MENUSTATE      INTEGER default (0)
 )
 tablespace ORAIBS_SPACE
   pctfree 10
@@ -102,7 +102,7 @@ create table SYSTEM_ROLE
   ROLE_ID      NUMBER,
   ROLE_NAME    VARCHAR2(50),
   ROLE_COMMENT VARCHAR2(100),
-  STATE        INTEGER default (0)
+  RSTATE       INTEGER default (0)
 )
 tablespace ORAIBS_SPACE
   pctfree 10
@@ -188,7 +188,7 @@ create table SYSTEM_USER
   LAST_LOGIN  VARCHAR2(50),
   LAST_IP     VARCHAR2(20),
   USER_DESC   VARCHAR2(50),
-  STATE       INTEGER default (0),
+  USTATE      INTEGER default (0),
   ROLE_ID     NUMBER
 )
 tablespace ORAIBS_SPACE
@@ -251,25 +251,29 @@ delete from SYSTEM_BUTTON;
 commit;
 prompt Loading SYSTEM_BUTTON...
 insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
-values ('VIEW', '查看详细', 'icon-add', 'view', null, 0);
+values ('VIEW', '查看详细', 'icon-add', 'view()', '查看详细信息', 0);
 insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
-values ('ADD', '新增', 'icon-add', 'add', null, 0);
+values ('ALLOT', '分配按钮', 'icon-edit', 'allot()', '分配页面按钮', 0);
 insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
-values ('DEL', '删除', 'icon-del', 'del', null, 0);
+values ('ADD', '新增', 'icon-add', 'add()', '添加项', 0);
 insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
-values ('EDIT', '编辑', 'icon-edit', 'edit', null, 0);
+values ('DEL', '删除', 'icon-remove', 'del()', '删除项', 0);
 insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
-values ('QUERY', '查询', 'icon-query', 'query', null, 0);
+values ('EDIT', '编辑', 'icon-edit', 'edit()', '编辑项', 0);
 insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
-values ('SAVE', '保存', 'icon-save', 'save', null, 0);
+values ('QUERY', '查询', 'icon-search', 'query()', null, 0);
 insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
-values ('CANCEL', '取消', 'icon-cancel', 'cancel', null, 0);
+values ('SAVE', '保存', 'icon-save', 'save()', null, 0);
 insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
-values ('EXPORT', '导出', 'icon-export', 'export', null, 0);
+values ('CANCEL', '取消', 'icon-cancel', 'cancel()', null, 0);
 insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
-values ('RESETPASS', '重置密码', 'icon-resetpass', 'resetpass', null, 0);
+values ('test', 'testsss', 'icon-search', 'test()', 'sssssssSSSS', 0);
+insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
+values ('EXPORT', '导出', 'icon-excel', 'export()', null, 0);
+insert into SYSTEM_BUTTON (BUTTONCODE, BUTTONNAME, BUTTONICON, BUTTONEVENT, RESDESC, STATE)
+values ('RESETPASS', '重置密码', 'icon-resetpass', 'resetpass()', null, 0);
 commit;
-prompt 9 records loaded
+prompt 11 records loaded
 prompt Loading SYSTEM_COMPANY...
 insert into SYSTEM_COMPANY (COMPANY_ID, COMPANY_NAME, CHANNEL_ID, INSERT_TIME, UPDATE_USER, UPDATE_TIME, BEFORE_AMT, AFTER_AMT, CURR_AMT, WARN_AMT, STATUS)
 values ('888002148160009', 'PayMent网站', '00000001', to_date('10-04-2014 11:05:35', 'dd-mm-yyyy hh24:mi:ss'), 'sandadmin', to_date('10-04-2014 11:14:04', 'dd-mm-yyyy hh24:mi:ss'), 1000000, 1100000, 9390.5, 10000, 1);
@@ -280,23 +284,47 @@ values ('888002148160002', '生活杉德网', '00000007', to_date('10-04-2014 15:19:2
 commit;
 prompt 3 records loaded
 prompt Loading SYSTEM_MENU...
-insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, RESDESC, STATE)
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
 values ('0102', '角色管理', '01', 'icon-users', 'roleManage', null, 0);
-insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, RESDESC, STATE)
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
 values ('02', '对账管理', '00', 'icon-sys', null, null, 0);
-insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, RESDESC, STATE)
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
 values ('0201', '商户交易记录管理', '02', 'icon-users', 'transManage', null, 0);
-insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, RESDESC, STATE)
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
+values ('0106', '角色权限管理', '01', 'icon-users', 'rolePriviManage', '角色分配权限', 0);
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
+values ('03', '测试管理', '00', 'icon-sys', null, 'desccccss', 0);
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
+values ('0301', '测试', '03', 'icon-users', 'testManage', 'descccccccccc', 0);
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
 values ('0104', '菜单管理', '01', 'icon-users', 'menuManage', null, 0);
-insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, RESDESC, STATE)
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
 values ('0103', '商户管理', '01', 'icon-users', 'compManage', null, 0);
-insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, RESDESC, STATE)
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
+values ('0105', '操作按钮', '01', 'icon-users', 'buttonManage', null, 0);
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
 values ('01', '系统管理', '00', 'icon-sys', null, null, 0);
-insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, RESDESC, STATE)
+insert into SYSTEM_MENU (MENUCODE, MENUNAME, PARENTMENUCODE, MENUICON, MENUURL, MENUDESC, MENUSTATE)
 values ('0101', '用户管理', '01', 'icon-users', 'userManage', null, 0);
 commit;
-prompt 7 records loaded
+prompt 11 records loaded
 prompt Loading SYSTEM_MENUBUTTON...
+insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
+values ('0104', 'ADD');
+insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
+values ('0104', 'EDIT');
+insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
+values ('0104', 'DEL');
+insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
+values ('0104', 'ALLOT');
+insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
+values ('0105', 'ADD');
+insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
+values ('0105', 'EDIT');
+insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
+values ('0105', 'DEL');
+insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
+values ('0105', 'QUERY');
 insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
 values ('0101', 'ADD');
 insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
@@ -326,12 +354,12 @@ values ('0201', 'QUERY');
 insert into SYSTEM_MENUBUTTON (MENUCODE, BUTTONCODE)
 values ('0201', 'EXPORT');
 commit;
-prompt 14 records loaded
+prompt 22 records loaded
 prompt Loading SYSTEM_ROLE...
-insert into SYSTEM_ROLE (ROLE_ID, ROLE_NAME, ROLE_COMMENT, STATE)
+insert into SYSTEM_ROLE (ROLE_ID, ROLE_NAME, ROLE_COMMENT, RSTATE)
 values (1, '超级管理员', '超级管理员角色，无敌权限', 0);
-insert into SYSTEM_ROLE (ROLE_ID, ROLE_NAME, ROLE_COMMENT, STATE)
-values (2, '普通商户', '系统外接商户，具有查询该商户交易记录和下载对账单权限', 1);
+insert into SYSTEM_ROLE (ROLE_ID, ROLE_NAME, ROLE_COMMENT, RSTATE)
+values (2, '普通商户', '系统外接商户，具有查询该商户交易记录和下载对账单权限', 0);
 commit;
 prompt 2 records loaded
 prompt Loading SYSTEM_ROLEMENU...
@@ -344,11 +372,17 @@ values (1, '0201');
 insert into SYSTEM_ROLEMENU (ROLE_ID, MENUCODE)
 values (1, '0103');
 insert into SYSTEM_ROLEMENU (ROLE_ID, MENUCODE)
+values (1, '0106');
+insert into SYSTEM_ROLEMENU (ROLE_ID, MENUCODE)
+values (1, '0301');
+insert into SYSTEM_ROLEMENU (ROLE_ID, MENUCODE)
 values (2, '0201');
 insert into SYSTEM_ROLEMENU (ROLE_ID, MENUCODE)
 values (1, '0104');
+insert into SYSTEM_ROLEMENU (ROLE_ID, MENUCODE)
+values (1, '0105');
 commit;
-prompt 6 records loaded
+prompt 9 records loaded
 prompt Loading SYSTEM_ROLE_MENUBUTTON...
 insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
 values (1, '0101', 'ADD');
@@ -361,6 +395,20 @@ values (1, '0101', 'QUERY');
 insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
 values (1, '0101', 'VIEW');
 insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
+values (1, '0104', 'ADD');
+insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
+values (1, '0104', 'EDIT');
+insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
+values (1, '0104', 'DEL');
+insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
+values (1, '0104', 'ALLOT');
+insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
+values (1, '0105', 'ADD');
+insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
+values (1, '0105', 'EDIT');
+insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
+values (1, '0105', 'DEL');
+insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
 values (1, '0101', 'RESETPASS');
 insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
 values (2, '0201', 'QUERY');
@@ -371,22 +419,24 @@ values (1, '0102', 'EDIT');
 insert into SYSTEM_ROLE_MENUBUTTON (ROLE_ID, MENUCODE, BUTTONCODE)
 values (1, '0102', 'DEL');
 commit;
-prompt 10 records loaded
+prompt 17 records loaded
 prompt Loading SYSTEM_ROLE_MENUITEMS...
 prompt Table is empty
 prompt Loading SYSTEM_USER...
-insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, STATE, ROLE_ID)
-values ('admin', 'TST8VBeOTpV+bm9XrqTl5w==', null, '管理员', 'admin@sand.com.cn', '021-64031111', '2014-09-26 17:33:40', '0:0:0:0:0:0:0:1', '本系统超级管理员', 0, 1);
-insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, STATE, ROLE_ID)
-values ('test', 'TST8VBeOTpV+bm9XrqTl5w==', '888002148160009', 'test', 'test@163.com', '11111111', null, null, 'test', 0, 2);
-insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, STATE, ROLE_ID)
-values ('test2', 'TST8VBeOTpV+bm9XrqTl5w==', '888002148160002', 'test22', 'test2@163.com', '22222222', null, null, 'test222222222', 0, 2);
-insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, STATE, ROLE_ID)
-values ('longhuasishen', 'TST8VBeOTpV+bm9XrqTl5w==', null, '李守勇', 'lishouyong.920@163.com', '15000596141', '2014-08-07 17:13:03', '0:0:0:0:0:0:0:1', '管理员哦', 0, 1);
-insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, STATE, ROLE_ID)
-values ('sandlife', 'TST8VBeOTpV+bm9XrqTl5w==', '888002148160002', '1111', 'sandlife@163.com', '11111111', null, null, 'sandlife操作人员', 0, 2);
+insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, USTATE, ROLE_ID)
+values ('admin', 'TST8VBeOTpV+bm9XrqTl5w==', null, '管理员', 'admin@sand.com.cn', '021-64031111', '2014-12-05 16:58:00', '0:0:0:0:0:0:0:1', '本系统超级管理员', 0, 1);
+insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, USTATE, ROLE_ID)
+values ('bbbb', '3PkCn23tCvY=', '888002148160002', 'bbbb', 'bbbb@13.com', '13534230987', null, null, 'bbbbb', 1, 2);
+insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, USTATE, ROLE_ID)
+values ('aaaa', '1ehWxLwvlrE=', '888002148160009', 'dddd', 'ddd@163.com', 'dddd', null, null, 'ddddd', 0, 2);
+insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, USTATE, ROLE_ID)
+values ('sandlife', 'TST8VBeOTpV+bm9XrqTl5w==', '888002148160002', '1111', 'sandlife@163.com', '11111111', '2014-11-25 15:33:50', '0:0:0:0:0:0:0:1', 'sandlife操作人员', 0, 2);
+insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, USTATE, ROLE_ID)
+values ('aaa', '1ehWxLwvlrE=', null, 'dddd', 'ddd@163.com', 'dddd', null, null, 'ddddd', 0, 1);
+insert into SYSTEM_USER (USERNAME, USER_PASSWD, COMPANY_ID, NAME, EMAIL, PHONENUMBER, LAST_LOGIN, LAST_IP, USER_DESC, USTATE, ROLE_ID)
+values ('ddd', 'w1xTpA9NurQ=', '888002148160002', 'dddd', 'ddd@163.com', 'dddd', null, null, 'ddddssss', 0, 2);
 commit;
-prompt 5 records loaded
+prompt 6 records loaded
 prompt Enabling triggers for SYSTEM_BUTTON...
 alter table SYSTEM_BUTTON enable all triggers;
 prompt Enabling triggers for SYSTEM_COMPANY...
