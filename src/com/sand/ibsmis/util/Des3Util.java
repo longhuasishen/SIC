@@ -147,7 +147,7 @@ public class Des3Util
     String strEnc = des
       .getEncString("sandsand");
     System.out.println(strEnc);
-    String strDes = des.getDesString("7Fu5IEgs5NJ+bm9XrqTl5w==");
+    String strDes = des.getDesString("pzxDZKnv7MnvzdUNnjCbXQ==");
     System.out.println(strDes);
   }
 }

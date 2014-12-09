@@ -113,20 +113,10 @@ public class RolePriController {
 		response.setCharacterEncoding("UTF-8");
 		List<Resource> list=new ArrayList<Resource>();
 		list=menuService.findMenusByRoleId(roleId);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("total", 0);
-		map.put("rows", list);
-		ObjectMapper objectMapper=new ObjectMapper();
-		String json = "";  
-        try  
-        {  
-            json = objectMapper.writeValueAsString(map);  
-            System.out.println(json);  
-        }  
-        catch(Exception e)  
-        {  
-            e.printStackTrace();  
-        }  
+		JSONArray parentArray=new JSONArray();
+		parentArray=MenuUtil.getMenuTree(list, "00");
+		String json = parentArray.toString();  
+		System.out.println(json);
         return json;
 	}
 	@RequestMapping(value="/save",method = RequestMethod.POST,produces = {"text/html;charset=UTF-8"})

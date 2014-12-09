@@ -18,7 +18,9 @@
 		select * from system_menu m order by m.menucode asc
 	</select>
 	<select id="findResourcesByRoleId" parameterType="java.lang.String" resultMap="menuResult">
-		
+		select * from system_menu sm where sm.menucode in (select distinct m.parentmenucode from system_menu m join system_rolemenu rm 
+on m.menucode=rm.menucode and rm.role_id=#{roleId}) or sm.menucode in (select distinct m.menucode from system_menu m join system_rolemenu rm 
+on m.menucode=rm.menucode and rm.role_id=#{roleId}) order by sm.menucode asc
 	</select>
 	<select id="queryResourceCount" resultType="java.lang.Integer">
 		select count(*) from system_menu m

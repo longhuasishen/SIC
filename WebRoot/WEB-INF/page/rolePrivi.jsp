@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    </div>
 	        </div>
 	        <div title="模块权限" data-options="closable:true">
-	            <table id="dg2" title="菜单信息列表" class="easyui-treegrid" fitColumns="true" checkbox="true"  
+	            <table id="dgMenu" title="菜单信息列表" class="easyui-treegrid" fitColumns="true" checkbox="true"  
 	    		data-options="url: 'roleprivi/selectMenu',
 	                		  method: 'post',
 	                	      rownumbers: true,

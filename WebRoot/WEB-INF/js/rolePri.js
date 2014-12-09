@@ -5,6 +5,7 @@ $(function(){
 	$('#roleTree').tree({
 		onClick: function(node){
 			$("#dg").datagrid({url:'roleprivi/selectUser?roleId='+node.id});
+			$("#dgMenu").treegrid({url:'roleprivi/selectMenu?roleId='+node.id});
 		}
 	});
 });
