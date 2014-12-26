@@ -24,16 +24,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<ul id="roleTree" class="easyui-tree" data-options="url:'roleprivi/selectRole',method:'get',animate:true"></ul>
   	</div>
   	<div data-options="region:'center',title:''">
-	    <div class="easyui-tabs" >
+	    <div class="easyui-tabs" style="height:auto">
 	    	<div title="角色成员" >
-	    		<div class="easyui-layout" style="height:100%;">
+	    		<div class="easyui-layout" style="height:93%;" data-options="fit:true" >
 		            <table id="dg" title="角色成员列表" class="easyui-datagrid" style="display:block;"
 				           toolbar="#toolbar" url="" loadMsg="正在加载数据..." rownumbers="true"
 				           checkbox="true" rownumbers="true" fit="true" singleSelect="true">
 				        <thead data-options="frozen:true">
 				            <tr>
-				                <th data-options="field:'username',width:100">用户名</th>
-				                <th data-options="field:'name',width:80">姓名</th>
+				                <th data-options="field:'username',width:80">用户名</th>
+				                <th data-options="field:'name',width:70">姓名</th>
 				                <th data-options="field:'email',width:150">邮箱</th>
 				                <th data-options="field:'phonenumber',width:90">联系电话</th>
 				                <th data-options="field:'company_id',width:120">所属商户</th>
@@ -41,9 +41,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        </thead>
 				        <thead>
 				        	<tr>
-				                <th data-options="field:'last_login',width:150">最近登录时间</th>
+				                <th data-options="field:'last_login',width:140">最近登录时间</th>
 				                <th data-options="field:'last_ip',width:120">最近登录IP</th>
-				                <th data-options="field:'desc',width:150">说明</th>
+				                <th data-options="field:'desc',width:140">说明</th>
 				            </tr>
 				        </thead>
 				    </table>
@@ -70,8 +70,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        </thead>
 			    </table>
 	        </div>
-	        <div title="按钮权限" data-options="closable:true" style="padding:10px">
-	            This is the help content.
+	        <div title="按钮权限" data-options="closable:true">
+	            <div class="easyui-layout" style="height:93%" data-options="fit:true" data-options="fit:true">
+	            	<div data-options="region:'west',title:'模块列表',split:true,collapsible:false" style="width:200px;">
+	            		<ul id="menuTree" class="easyui-tree" data-options="url:'',method:'get',animate:true"></ul>
+	            	</div>
+	            	<div data-options="region:'center',title:'选择按钮',split:true,collapsible:false">
+	            		<div id="alloctTools" style="background-color:#F7F7F7">
+			    			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-resetpass" plain="true" onclick="add()">授权</a>
+			    		</div>
+	            		<div id="buttonList">暂无按钮</div>
+	            	</div>
+	            </div>
 	        </div>
 	    </div>
     

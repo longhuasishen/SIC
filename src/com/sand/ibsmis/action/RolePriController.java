@@ -114,10 +114,30 @@ public class RolePriController {
 		List<Resource> list=new ArrayList<Resource>();
 		list=menuService.findMenusByRoleId(roleId);
 		JSONArray parentArray=new JSONArray();
-		parentArray=MenuUtil.getMenuTree(list, "00");
+		parentArray=MenuUtil.getMenuTreeGrid(list, "00");
 		String json = parentArray.toString();  
 		System.out.println(json);
         return json;
+	}
+	@RequestMapping(value="/selectMenuTree",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String selectMenuTree(@RequestParam(value="roleId")String roleId,HttpServletRequest request,HttpServletResponse response) throws JSONException{
+		response.setCharacterEncoding("UTF-8");
+		List<Resource> list=new ArrayList<Resource>();
+		list=menuService.findMenusByRoleId(roleId);
+		JSONArray parentArray=new JSONArray();
+		parentArray=MenuUtil.getMenuTree(list, "00");
+		System.out.println(parentArray.toString());
+		return parentArray.toString();
+	}
+	@RequestMapping(value="/selectMenuButton",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String selectMenuButton(@RequestParam(value="roleId")String roleId,@RequestParam(value="menuId")String menuId,HttpServletRequest request,HttpServletResponse response) throws JSONException{
+		response.setCharacterEncoding("UTF-8");
+		JSONArray array=new JSONArray();
+		array=rolePriService.findButtonByMenuRole(roleId,menuId);
+		System.out.println(array.toString());
+		return array.toString();
 	}
 	@RequestMapping(value="/save",method = RequestMethod.POST,produces = {"text/html;charset=UTF-8"})
 	@ResponseBody

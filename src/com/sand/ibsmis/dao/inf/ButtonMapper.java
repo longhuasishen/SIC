@@ -12,4 +12,6 @@ public interface ButtonMapper {
 	public int insertButton(Button button);
 	public int updateButton(Button button);
 	public int deleteButton(String buttonCode);
+	public List<Button> findButtonByMenuRole(String roleId, String menuId);
+	public List<Button> findButtonByMenu(String menuId);
 }

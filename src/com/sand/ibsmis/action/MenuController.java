@@ -73,7 +73,7 @@ public class MenuController {
 		List<Resource> list=new ArrayList<Resource>();
 		list=menuService.findMenus();
 		JSONArray parentArray=new JSONArray();
-		parentArray=MenuUtil.getMenuTree(list, "00");
+		parentArray=MenuUtil.getMenuTreeGrid(list, "00");
 		String json = parentArray.toString();  
 		System.out.println(json);  
         return json;

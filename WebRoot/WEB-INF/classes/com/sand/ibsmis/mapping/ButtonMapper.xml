@@ -16,6 +16,12 @@
 <select id="findButtons" resultMap="buttonResult">
 	select * from system_button sb order by sb.buttoncode asc
 </select>
+<select id="findButtonByMenuRole" parameterType="java.lang.String" resultMap="buttonResult">
+	select t.* from system_button t join system_role_menubutton m on m.buttoncode=t.buttoncode and m.role_id=#{0} and m.menucode=#{1}
+</select>
+<select id="findButtonByMenu" resultMap="buttonResult">
+	select t.* from system_button t join system_menubutton b on t.buttoncode=b.buttoncode and b.menucode=#{menuId}
+</select>
 <select id="queryButtonCount" resultType="java.lang.Integer">
 	select count(*) from system_button sb
 </select>
